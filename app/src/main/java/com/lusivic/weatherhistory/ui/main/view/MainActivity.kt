@@ -1,4 +1,4 @@
-package com.lusivic.weatherhistory.ui.main
+package com.lusivic.weatherhistory.ui.main.view
 
 import android.app.Activity
 import android.os.Bundle
