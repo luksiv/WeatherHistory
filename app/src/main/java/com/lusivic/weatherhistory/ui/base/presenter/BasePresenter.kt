@@ -2,8 +2,10 @@ package com.lusivic.weatherhistory.ui.base.presenter
 
 import com.lusivic.weatherhistory.ui.base.interactor.MVPInteractor
 import com.lusivic.weatherhistory.ui.base.view.MVPView
+import com.lusivic.weatherhistory.utils.SchedulerProvider
+import io.reactivex.disposables.CompositeDisposable
 
-abstract class BasePresenter<V : MVPView, I : MVPInteractor> internal constructor(protected var interactor: I?) :
+abstract class BasePresenter<V : MVPView, I : MVPInteractor> internal constructor(protected var interactor: I?, protected val schedulerProvider: SchedulerProvider, protected val compositeDisposable: CompositeDisposable) :
     MVPPresenter<V, I> {
 
     private var view: V? = null

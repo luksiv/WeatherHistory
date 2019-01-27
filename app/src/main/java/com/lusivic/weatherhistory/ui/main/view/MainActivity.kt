@@ -5,20 +5,20 @@ import android.widget.Toast
 import com.lusivic.weatherhistory.R
 import com.lusivic.weatherhistory.data.db.weatherReport.WeatherReport
 import com.lusivic.weatherhistory.ui.base.view.BaseActivity
-import com.lusivic.weatherhistory.ui.main.interactor.MainInteractor
-import com.lusivic.weatherhistory.ui.main.presenter.MainPresenter
+import com.lusivic.weatherhistory.ui.main.interactor.MainMVPInteractor
+import com.lusivic.weatherhistory.ui.main.presenter.MainMVPPresenter
 import kotlinx.android.synthetic.main.activity_main.*
+import javax.inject.Inject
 
 
 class MainActivity: BaseActivity(), MainMVPView {
 
-    private val mMainInteractor: MainInteractor = MainInteractor()
-    private val mMainPresenter: MainPresenter<MainActivity, MainInteractor> = MainPresenter(mMainInteractor)
+    @Inject lateinit var mPresenter: MainMVPPresenter<MainMVPView, MainMVPInteractor>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        mMainPresenter.onAttach(this)
+        mPresenter.onAttach(this)
         setOnClickListeners()
 
 
@@ -37,14 +37,14 @@ class MainActivity: BaseActivity(), MainMVPView {
 
     private fun setOnClickListeners(){
         btn_refresh.setOnClickListener {
-            mMainPresenter.onRefreshClick()
+            mPresenter.onRefreshClick()
         }
         btn_submit.setOnClickListener {
-            mMainPresenter.onSubmitClick()
+            mPresenter.onSubmitClick()
             Toast.makeText(this, "Submit not implemented!", Toast.LENGTH_LONG).show()
         }
         btn_history.setOnClickListener {
-            mMainPresenter.onHistoryClick()
+            mPresenter.onHistoryClick()
         }
     }
 }
