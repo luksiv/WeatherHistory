@@ -17,10 +17,6 @@ data class WeatherReport(
     var humidity: Int,
     @ColumnInfo(name = "wind_speed")
     var windSpeed: Float,
-//    @ColumnInfo(name = "latitude")
-//    var latitude: Long,
-//    @ColumnInfo(name = "longitude")
-//    var longitude: Long,
     @ColumnInfo(name = "location")
     var location: String,
     @ColumnInfo(name = "report_timestamp")
