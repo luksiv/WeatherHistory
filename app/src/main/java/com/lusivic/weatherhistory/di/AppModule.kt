@@ -27,7 +27,7 @@ class AppModule {
 
     @Provides
     @Singleton
-    internal fun provideAppDadtabase(context: Context): AppDatabase =
+    internal fun provideAppDatabase(context: Context): AppDatabase =
             Room.databaseBuilder(context, AppDatabase::class.java, AppConstants.APP_DB_NAME).build()
 
     @Provides
