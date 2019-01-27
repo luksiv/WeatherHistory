@@ -7,6 +7,7 @@ import com.lusivic.weatherhistory.data.db.weatherReport.WeatherReport
 import com.lusivic.weatherhistory.ui.base.view.BaseActivity
 import com.lusivic.weatherhistory.ui.main.interactor.MainMVPInteractor
 import com.lusivic.weatherhistory.ui.main.presenter.MainMVPPresenter
+import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
@@ -18,6 +19,7 @@ class MainActivity: BaseActivity(), MainMVPView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        AndroidInjection.inject(this)
         mPresenter.onAttach(this)
         setOnClickListeners()
 
