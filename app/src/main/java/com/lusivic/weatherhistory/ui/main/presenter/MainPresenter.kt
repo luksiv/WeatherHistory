@@ -1,5 +1,6 @@
 package com.lusivic.weatherhistory.ui.main.presenter
 
+import android.util.Log
 import com.lusivic.weatherhistory.ui.base.presenter.BasePresenter
 import com.lusivic.weatherhistory.ui.main.interactor.MainMVPInteractor
 import com.lusivic.weatherhistory.ui.main.view.MainActivity
@@ -8,20 +9,37 @@ import com.lusivic.weatherhistory.utils.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
-class MainPresenter<V : MainMVPView, I : MainMVPInteractor> @Inject internal constructor(interactor: I, schedulerProvider: SchedulerProvider, disposable: CompositeDisposable) :
-    BasePresenter<V, I>(interactor = interactor, schedulerProvider = schedulerProvider, compositeDisposable = disposable), MainMVPPresenter<V, I> {
+class MainPresenter<V : MainMVPView, I : MainMVPInteractor> @Inject internal constructor(
+    interactor: I,
+    schedulerProvider: SchedulerProvider,
+    disposable: CompositeDisposable
+) :
+    BasePresenter<V, I>(
+        interactor = interactor,
+        schedulerProvider = schedulerProvider,
+        compositeDisposable = disposable
+    ), MainMVPPresenter<V, I> {
     override fun onAttach(view: V?) {
         super.onAttach(view)
         getLatestWeatherReport()
     }
 
-    override fun getLatestWeatherReport(): Boolean? {
+    override fun getLatestWeatherReport() {
         getView()?.showProgress()
-        val weatherReport = interactor?.getCurrentWeatherReport()
-        getView()?.showCurrentWeather(weatherReport!!)
-        getView()?.hideProgress()
-        return true
+        interactor?.let {
+            compositeDisposable.add(
+                it.getCurrentWeatherReport()
+                    .compose(schedulerProvider.ioToMainSingleScheduler())
+                    .subscribe({ weatherReport ->
+                        getView()?.let{
+                            it.hideProgress()
+                            it.showCurrentWeather(weatherReport)
+                        }
+                    }, { err -> Log.e("getLatestWeatherReport()", err.message) })
+            )
+        }
     }
+
 
     override fun onHistoryClick() {
         (getView() as MainActivity).openHistoryActivity()
