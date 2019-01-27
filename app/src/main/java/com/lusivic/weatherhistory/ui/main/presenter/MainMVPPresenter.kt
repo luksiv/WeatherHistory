@@ -5,7 +5,7 @@ import com.lusivic.weatherhistory.ui.main.interactor.MainMVPInteractor
 import com.lusivic.weatherhistory.ui.main.view.MainMVPView
 
 interface MainMVPPresenter<V : MainMVPView, I : MainMVPInteractor> : MVPPresenter<V, I> {
-    fun getLatestWeatherReport(): Boolean?
+    fun getLatestWeatherReport(): Unit?
     fun onHistoryClick(): Unit?
     fun onRefreshClick(): Unit?
     fun onSubmitClick(): Unit?
