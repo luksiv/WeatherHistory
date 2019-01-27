@@ -4,14 +4,12 @@ import android.app.ProgressDialog
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.lusivic.weatherhistory.utils.CommonUtil
-import dagger.android.AndroidInjection
 
 abstract class BaseActivity : AppCompatActivity(), MVPView {
     private var progressDialog: ProgressDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        AndroidInjection.inject(this)
     }
 
     override fun showProgress() {
