@@ -5,6 +5,7 @@ import android.content.Context
 import androidx.room.Room
 import com.lusivic.weatherhistory.BuildConfig
 import com.lusivic.weatherhistory.data.db.AppDatabase
+import com.lusivic.weatherhistory.data.db.weatherReport.WeatherReportDao
 import com.lusivic.weatherhistory.utils.AppConstants
 import com.lusivic.weatherhistory.utils.SchedulerProvider
 import dagger.Module
@@ -28,6 +29,10 @@ class AppModule {
     @Singleton
     internal fun provideAppDadtabase(context: Context): AppDatabase =
             Room.databaseBuilder(context, AppDatabase::class.java, AppConstants.APP_DB_NAME).build()
+
+    @Provides
+    @Singleton
+    internal fun provideWeatherReportDao(appDatabase: AppDatabase): WeatherReportDao = appDatabase.weatherReportDao()
 
     @Provides
     @Named(OPEN_WEATHER_API_KEY)
