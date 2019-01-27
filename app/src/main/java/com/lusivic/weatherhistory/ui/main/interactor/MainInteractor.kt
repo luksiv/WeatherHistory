@@ -1,11 +1,13 @@
 package com.lusivic.weatherhistory.ui.main.interactor
 
 import com.lusivic.weatherhistory.data.db.weatherReport.WeatherReport
+import com.lusivic.weatherhistory.data.db.weatherReport.WeatherReportDao
 import com.lusivic.weatherhistory.ui.base.interactor.BaseInteractor
 import java.util.*
+import javax.inject.Inject
 import kotlin.math.roundToInt
 
-class MainInteractor : BaseInteractor(), MainMVPInteractor {
+class MainInteractor @Inject internal constructor(weatherReportDao: WeatherReportDao): BaseInteractor(), MainMVPInteractor {
     override fun getCurrentWeatherReport(): WeatherReport {
         val temperature = ((Random().nextFloat() * 60 - 30) * 10).roundToInt().toFloat() / 10
         val name: String = when {
