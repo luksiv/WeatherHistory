@@ -1,6 +1,7 @@
 package com.lusivic.weatherhistory.ui.main.view
 
 import android.os.Bundle
+import android.widget.Toast
 import com.lusivic.weatherhistory.R
 import com.lusivic.weatherhistory.data.db.weatherReport.WeatherReport
 import com.lusivic.weatherhistory.ui.base.view.BaseActivity
@@ -18,6 +19,9 @@ class MainActivity: BaseActivity(), MainMVPView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         mMainPresenter.onAttach(this)
+        setOnClickListeners()
+
+
     }
 
     override fun showCurrentWeather(weather: WeatherReport) {
@@ -28,6 +32,19 @@ class MainActivity: BaseActivity(), MainMVPView {
     }
 
     override fun openHistoryActivity() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Toast.makeText(this, "History not implemented!", Toast.LENGTH_LONG).show()
+    }
+
+    private fun setOnClickListeners(){
+        btn_refresh.setOnClickListener {
+            mMainPresenter.onRefreshClick()
+        }
+        btn_submit.setOnClickListener {
+            mMainPresenter.onSubmitClick()
+            Toast.makeText(this, "Submit not implemented!", Toast.LENGTH_LONG).show()
+        }
+        btn_history.setOnClickListener {
+            mMainPresenter.onHistoryClick()
+        }
     }
 }
