@@ -1,4 +1,4 @@
 package com.lusivic.weatherhistory.ui.base.interactor
 
-class BaseInteractor : MVPInteractor {
+open class BaseInteractor : MVPInteractor {
 }
