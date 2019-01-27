@@ -17,9 +17,14 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug {
+            buildConfigField("String", "OPEN_WEATHER_API_KEY", "\"58cab431b7875800d819008f251aa7b2\"")
+        }
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField("String", "OPEN_WEATHER_API_KEY", "\"58cab431b7875800d819008f251aa7b2\"")
         }
     }
 }
@@ -44,6 +49,9 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:2.13"
     kapt "com.google.dagger:dagger-android-processor:2.13"
     implementation "com.google.dagger:dagger-android-support:2.13"
+    // rx
+    implementation "io.reactivex.rxjava2:rxjava:2.1.7"
+    implementation "io.reactivex.rxjava2:rxandroid:2.0.1"
 
     testImplementation 'junit:junit:4.13-beta-1'
     androidTestImplementation 'androidx.test:runner:1.1.1'
