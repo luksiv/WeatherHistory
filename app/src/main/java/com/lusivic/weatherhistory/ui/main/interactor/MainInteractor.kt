@@ -39,6 +39,4 @@ class MainInteractor @Inject internal constructor(private val weatherReportRepo:
     override fun insertWeatherReport(weatherReport: WeatherReport) {
         weatherReportRepo.insertWeatherReport(weatherReport)
     }
-
-    override fun getWeatherReportHistory(): Single<List<WeatherReport>> = weatherReportRepo.getAllWeatherReports()
 }
