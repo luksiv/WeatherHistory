@@ -22,15 +22,23 @@ class MainInteractor @Inject internal constructor(private val weatherReportRepo:
             else -> "Don't know"
         }
 
-        return WeatherReport(
-            0,
-            name,
-            "Description",
-            temperature,
-            80,
-            10.1f,
-            "Vilnius",
-            100020212
+        return Single.just(
+            WeatherReport(
+                0,
+                name,
+                "Description",
+                temperature,
+                80,
+                10.1f,
+                "Vilnius",
+                100020212
+            )
         )
     }
+
+    override fun insertWeatherReport(weatherReport: WeatherReport) {
+        weatherReportRepo.insertWeatherReport(weatherReport)
+    }
+
+    override fun getWeatherReportHistory(): Single<List<WeatherReport>> = weatherReportRepo.getAllWeatherReports()
 }
