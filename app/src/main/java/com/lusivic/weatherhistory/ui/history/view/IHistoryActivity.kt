@@ -5,5 +5,6 @@ import com.lusivic.weatherhistory.ui.base.view.MVPView
 
 interface IHistoryActivity : MVPView{
     fun updateHistoryAdapter(history: List<WeatherReport>)
+    fun setListEmpty()
     fun goBack()
 }
