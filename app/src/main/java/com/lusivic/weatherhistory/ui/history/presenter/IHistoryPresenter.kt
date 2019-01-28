@@ -5,6 +5,6 @@ import com.lusivic.weatherhistory.ui.history.interactor.IHistoryInteractor
 import com.lusivic.weatherhistory.ui.history.view.IHistoryActivity
 
 interface IHistoryPresenter<V: IHistoryActivity, I: IHistoryInteractor>: MVPPresenter<V,I> {
-    fun getWeatherReportHistory(): Unit?
-    fun onBackPressed(): Unit?
+    fun getWeatherReportHistory()
+    fun onBackPressed()
 }
