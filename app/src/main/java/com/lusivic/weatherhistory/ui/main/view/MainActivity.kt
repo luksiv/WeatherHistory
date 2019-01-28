@@ -1,20 +1,22 @@
 package com.lusivic.weatherhistory.ui.main.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import com.lusivic.weatherhistory.R
 import com.lusivic.weatherhistory.data.db.weatherReport.WeatherReport
 import com.lusivic.weatherhistory.ui.base.view.BaseActivity
-import com.lusivic.weatherhistory.ui.main.interactor.MainMVPInteractor
-import com.lusivic.weatherhistory.ui.main.presenter.MainMVPPresenter
+import com.lusivic.weatherhistory.ui.history.view.HistoryActivity
+import com.lusivic.weatherhistory.ui.main.interactor.IMainInteractor
+import com.lusivic.weatherhistory.ui.main.presenter.IMainPresenter
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
 
-class MainActivity: BaseActivity(), MainMVPView {
+class MainActivity: BaseActivity(), IMainActivity {
 
-    @Inject lateinit var mPresenter: MainMVPPresenter<MainMVPView, MainMVPInteractor>
+    @Inject lateinit var mPresenter: IMainPresenter<IMainActivity, IMainInteractor>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
