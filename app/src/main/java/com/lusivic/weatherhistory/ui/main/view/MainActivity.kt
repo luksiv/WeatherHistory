@@ -42,7 +42,14 @@ class MainActivity : BaseActivity(), IMainActivity {
         startActivity(intent)
     }
 
-    private fun setOnClickListeners(){
+    override fun showInsertSuccessMessage() {
+        Toast.makeText(this, "Weather report submitted successfully!", Toast.LENGTH_LONG).show()
+    }
+
+    override fun showInsertFailedMessage() {
+        Toast.makeText(this, "Failed to submit the weather report!", Toast.LENGTH_LONG).show()
+    }
+
         btn_refresh.setOnClickListener {
             mPresenter.onRefreshClick()
         }
