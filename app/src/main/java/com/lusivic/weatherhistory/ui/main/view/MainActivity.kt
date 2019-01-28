@@ -50,12 +50,12 @@ class MainActivity : BaseActivity(), IMainActivity {
         Toast.makeText(this, "Failed to submit the weather report!", Toast.LENGTH_LONG).show()
     }
 
+    private fun setOnClickListeners() {
         btn_refresh.setOnClickListener {
             mPresenter.onRefreshClick()
         }
         btn_submit.setOnClickListener {
-            mPresenter.onSubmitClick()
-            Toast.makeText(this, "Submit not implemented!", Toast.LENGTH_LONG).show()
+            mCurrentWeather?.let { mPresenter.onSubmitClick(mCurrentWeather!!) }
         }
         btn_history.setOnClickListener {
             mPresenter.onHistoryClick()
