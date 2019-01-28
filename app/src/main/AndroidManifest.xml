@@ -18,6 +18,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.main.view.MainActivity"/>
+        <activity android:name=".ui.history.view.HistoryActivity"/>
     </application>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
