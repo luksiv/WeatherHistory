@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:layout_margin="8dp">
+        <TextView
+                android:id="@+id/tv_history_item_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2019-01-28 15:30"/>
+        <TextView
+                android:id="@+id/tv_history_item_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_toRightOf="@id/tv_history_item_date"
+                android:text="Vilnius, LT"/>
+        <TextView
+                android:id="@+id/tv_history_item_temperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_history_item_location"
+                android:text="Temperature : 20°C"/>
+        <TextView
+                android:id="@+id/tv_history_item_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_history_item_temperature"
+                android:text="Drizzle (light intensity drizzle)"/>
+        <TextView
+                android:id="@+id/tv_history_item_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_history_item_description"
+                android:text="Humidity: 81% Wind speed: 4.1 m/s"/>
+
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
