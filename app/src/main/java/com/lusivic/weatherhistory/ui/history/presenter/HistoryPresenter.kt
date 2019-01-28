@@ -17,6 +17,10 @@ class HistoryPresenter<V : IHistoryActivity, I : IHistoryInteractor> @Inject int
 
     override fun onAttach(view: V?) {
         super.onAttach(view)
+        getView()?.setUp()
+    }
+
+    override fun onViewPrepared() {
         getWeatherReportHistory()
     }
 
