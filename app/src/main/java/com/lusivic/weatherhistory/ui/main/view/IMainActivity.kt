@@ -6,5 +6,6 @@ import com.lusivic.weatherhistory.ui.base.view.MVPView
 interface IMainActivity : MVPView {
     fun showCurrentWeather(weather: WeatherReport)
     fun openHistoryActivity()
-
+    fun showInsertSuccessMessage()
+    fun showInsertFailedMessage()
 }
