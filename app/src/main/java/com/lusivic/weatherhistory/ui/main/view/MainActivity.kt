@@ -34,7 +34,8 @@ class MainActivity: BaseActivity(), MainMVPView {
     }
 
     override fun openHistoryActivity() {
-        Toast.makeText(this, "History not implemented!", Toast.LENGTH_LONG).show()
+        val intent = Intent(this, HistoryActivity::class.java)
+        startActivity(intent)
     }
 
     private fun setOnClickListeners(){
