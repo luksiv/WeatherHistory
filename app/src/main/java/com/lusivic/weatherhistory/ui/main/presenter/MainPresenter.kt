@@ -1,6 +1,7 @@
 package com.lusivic.weatherhistory.ui.main.presenter
 
 import android.util.Log
+import com.lusivic.weatherhistory.data.db.weatherReport.WeatherReport
 import com.lusivic.weatherhistory.ui.base.presenter.BasePresenter
 import com.lusivic.weatherhistory.ui.main.interactor.IMainInteractor
 import com.lusivic.weatherhistory.ui.main.view.IMainActivity
@@ -31,7 +32,7 @@ class MainPresenter<V : IMainActivity, I : IMainInteractor> @Inject internal con
                 it.getCurrentWeatherReport()
                     .compose(schedulerProvider.ioToMainSingleScheduler())
                     .subscribe({ weatherReport ->
-                        getView()?.let{
+                        getView()?.let {
                             it.hideProgress()
                             it.showCurrentWeather(weatherReport)
                         }
@@ -49,7 +50,25 @@ class MainPresenter<V : IMainActivity, I : IMainInteractor> @Inject internal con
         getLatestWeatherReport()
     }
 
-    override fun onSubmitClick() {
-        TODO("save the weather report to database")
+    override fun onSubmitClick(weatherReport: WeatherReport) {
+        getView()?.showProgress()
+        interactor?.let {
+            compositeDisposable.add(
+                it.insertWeatherReport(weatherReport)
+                    .compose(schedulerProvider.ioToMainCompletableScheduler())
+                    .subscribe({
+                        getView()?.let {
+                            it.hideProgress()
+                            it.showInsertSuccessMessage()
+                        }
+                    }, { err ->
+                        Log.e("onSubmitClick", err.message)
+                        getView()?.let {
+                            it.hideProgress()
+                            it.showInsertFailedMessage()
+                        }
+                    })
+            )
+        }
     }
 }
