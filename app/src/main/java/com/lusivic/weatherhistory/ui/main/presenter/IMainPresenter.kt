@@ -5,8 +5,8 @@ import com.lusivic.weatherhistory.ui.main.interactor.IMainInteractor
 import com.lusivic.weatherhistory.ui.main.view.IMainActivity
 
 interface IMainPresenter<V : IMainActivity, I : IMainInteractor> : MVPPresenter<V, I> {
-    fun getLatestWeatherReport(): Unit?
-    fun onHistoryClick(): Unit?
-    fun onRefreshClick(): Unit?
+    fun getLatestWeatherReport()
+    fun onHistoryClick()
+    fun onRefreshClick()
     fun onSubmitClick(): Unit?
 }
