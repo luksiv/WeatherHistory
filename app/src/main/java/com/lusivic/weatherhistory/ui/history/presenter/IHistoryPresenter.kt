@@ -7,4 +7,5 @@ import com.lusivic.weatherhistory.ui.history.view.IHistoryActivity
 interface IHistoryPresenter<V: IHistoryActivity, I: IHistoryInteractor>: MVPPresenter<V,I> {
     fun getWeatherReportHistory()
     fun onBackPressed()
+    fun onViewPrepared()
 }
