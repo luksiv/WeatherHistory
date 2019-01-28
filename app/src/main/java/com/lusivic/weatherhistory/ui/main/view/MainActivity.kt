@@ -14,9 +14,12 @@ import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
 
-class MainActivity: BaseActivity(), IMainActivity {
+class MainActivity : BaseActivity(), IMainActivity {
 
-    @Inject lateinit var mPresenter: IMainPresenter<IMainActivity, IMainInteractor>
+    @Inject
+    lateinit var mPresenter: IMainPresenter<IMainActivity, IMainInteractor>
+
+    internal var mCurrentWeather: WeatherReport? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,11 +27,10 @@ class MainActivity: BaseActivity(), IMainActivity {
         AndroidInjection.inject(this)
         mPresenter.onAttach(this)
         setOnClickListeners()
-
-
     }
 
     override fun showCurrentWeather(weather: WeatherReport) {
+        mCurrentWeather = weather
         tv_temperature.text = "${weather.temperature}°C"
         tv_weatherName.text = weather.name
         tv_weatherDescription.text = weather.description
