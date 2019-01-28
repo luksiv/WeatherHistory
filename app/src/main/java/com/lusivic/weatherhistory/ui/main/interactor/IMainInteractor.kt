@@ -8,5 +8,4 @@ interface IMainInteractor : MVPInteractor {
 
     fun getCurrentWeatherReport(): Single<WeatherReport>
     fun insertWeatherReport(weatherReport: WeatherReport)
-    fun getWeatherReportHistory(): Single<List<WeatherReport>>
 }
