@@ -9,6 +9,7 @@ import javax.inject.Inject
 import kotlin.math.roundToInt
 
 class MainInteractor @Inject internal constructor(private val weatherReportRepo: WeatherReportRepo) : BaseInteractor(),
+    private val openWeatherApiService: OpenWeatherApiService
     IMainInteractor {
     override fun getCurrentWeatherReport(): Single<WeatherReport> {
         val temperature = ((Random().nextFloat() * 60 - 30) * 10).roundToInt().toFloat() / 10
