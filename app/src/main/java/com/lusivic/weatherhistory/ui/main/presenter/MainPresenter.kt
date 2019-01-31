@@ -2,10 +2,12 @@ package com.lusivic.weatherhistory.ui.main.presenter
 
 import android.util.Log
 import com.lusivic.weatherhistory.data.db.weatherReport.WeatherReport
+import com.lusivic.weatherhistory.data.network.OpenWeatherResponse
 import com.lusivic.weatherhistory.ui.base.presenter.BasePresenter
 import com.lusivic.weatherhistory.ui.main.interactor.IMainInteractor
 import com.lusivic.weatherhistory.ui.main.view.IMainActivity
 import com.lusivic.weatherhistory.ui.main.view.MainActivity
+import com.lusivic.weatherhistory.utils.CommonUtil
 import com.lusivic.weatherhistory.utils.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
@@ -25,7 +27,7 @@ class MainPresenter<V : IMainActivity, I : IMainInteractor> @Inject internal con
         super.onAttach(view)
         getView()?.let {
             it.showProgress()
-            if(it.isLocationPermissionGranted()) it.setUp()
+            if (it.isLocationPermissionGranted()) it.setUp()
             else it.requestLocationPermission()
         }
     }
@@ -35,11 +37,10 @@ class MainPresenter<V : IMainActivity, I : IMainInteractor> @Inject internal con
     }
 
     override fun onLocationPermissionDenied() {
-        getView()?.let{
+        getView()?.let {
             it.hideProgress()
             it.showPermissionDenied()
         }
-
     }
 
     override fun onViewReady() = getLatestWeatherReport()
@@ -76,17 +77,20 @@ class MainPresenter<V : IMainActivity, I : IMainInteractor> @Inject internal con
         getView()?.showProgress()
         interactor?.let {
             compositeDisposable.add(
-                it.getCurrentWeatherReport()
+                it.getCurrentWeatherReport(54.899138f, 23.976159f)
                     .compose(schedulerProvider.ioToMainSingleScheduler())
-                    .subscribe({ weatherReport ->
+                    .subscribe({ response ->
+                        Log.v("API response", response.toString())
                         getView()?.let {
+                            val weatherReport = convertOpenWeatherResponseToWeatherReport((response))
                             it.hideProgress()
                             it.showCurrentWeather(weatherReport)
                         }
-                    }, { err -> Log.e("getLatestWeatherReport()", err.message) })
+                    }, { err -> Log.e("API response", err.message) })
             )
         }
     }
+
     private fun convertOpenWeatherResponseToWeatherReport(weatherResponse: OpenWeatherResponse): WeatherReport {
         return WeatherReport(
             -1,
