@@ -87,4 +87,15 @@ class MainPresenter<V : IMainActivity, I : IMainInteractor> @Inject internal con
             )
         }
     }
+    private fun convertOpenWeatherResponseToWeatherReport(weatherResponse: OpenWeatherResponse): WeatherReport {
+        return WeatherReport(
+            -1,
+            weatherResponse.weather[0].main,
+            weatherResponse.weather[0].description,
+            CommonUtil.kelvinToCelsius(weatherResponse.main.temp).toFloat(),
+            weatherResponse.main.humidity,
+            weatherResponse.wind.speed.toFloat(),
+            "${weatherResponse.name}, ${weatherResponse.sys.country}",
+            weatherResponse.dt.toLong())
+    }
 }
