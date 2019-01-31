@@ -20,35 +20,35 @@ class MainPresenter<V : IMainActivity, I : IMainInteractor> @Inject internal con
         schedulerProvider = schedulerProvider,
         compositeDisposable = disposable
     ), IMainPresenter<V, I> {
+
     override fun onAttach(view: V?) {
         super.onAttach(view)
-        getLatestWeatherReport()
-    }
-
-    override fun getLatestWeatherReport() {
-        getView()?.showProgress()
-        interactor?.let {
-            compositeDisposable.add(
-                it.getCurrentWeatherReport()
-                    .compose(schedulerProvider.ioToMainSingleScheduler())
-                    .subscribe({ weatherReport ->
-                        getView()?.let {
-                            it.hideProgress()
-                            it.showCurrentWeather(weatherReport)
-                        }
-                    }, { err -> Log.e("getLatestWeatherReport()", err.message) })
-            )
+        getView()?.let {
+            it.showProgress()
+            if(it.isLocationPermissionGranted()) it.setUp()
+            else it.requestLocationPermission()
         }
     }
 
+    override fun onLocationPermissionGranted() {
+        getView()?.setUp()
+    }
+
+    override fun onLocationPermissionDenied() {
+        getView()?.let{
+            it.hideProgress()
+            it.showPermissionDenied()
+        }
+
+    }
+
+    override fun onViewReady() = getLatestWeatherReport()
 
     override fun onHistoryClick() {
         (getView() as MainActivity).openHistoryActivity()
     }
 
-    override fun onRefreshClick() {
-        getLatestWeatherReport()
-    }
+    override fun onRefreshClick() = getLatestWeatherReport()
 
     override fun onSubmitClick(weatherReport: WeatherReport) {
         getView()?.showProgress()
@@ -68,6 +68,22 @@ class MainPresenter<V : IMainActivity, I : IMainInteractor> @Inject internal con
                             it.showInsertFailedMessage()
                         }
                     })
+            )
+        }
+    }
+
+    private fun getLatestWeatherReport() {
+        getView()?.showProgress()
+        interactor?.let {
+            compositeDisposable.add(
+                it.getCurrentWeatherReport()
+                    .compose(schedulerProvider.ioToMainSingleScheduler())
+                    .subscribe({ weatherReport ->
+                        getView()?.let {
+                            it.hideProgress()
+                            it.showCurrentWeather(weatherReport)
+                        }
+                    }, { err -> Log.e("getLatestWeatherReport()", err.message) })
             )
         }
     }
