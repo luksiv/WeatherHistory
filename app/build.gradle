@@ -18,7 +18,7 @@ android {
     }
     buildTypes {
         debug {
-            buildConfigField("String", "OPEN_WEATHER_API_KEY", "\"58cab431b7875800d819008f251aa7b2\"")
+            buildConfigField("String", "OPEN_WEATHER_API_KEY", "\"63cc0e61413bac6ec26e145f62c3edfe\"")
         }
 
         release {
