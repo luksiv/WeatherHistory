@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.lusivic.weatherhistory">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
     <application
             android:name="com.lusivic.weatherhistory.WeatherHistoryApp"
             android:allowBackup="true"
@@ -20,6 +24,5 @@
         <activity android:name=".ui.main.view.MainActivity"/>
         <activity android:name=".ui.history.view.HistoryActivity"/>
     </application>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
 </manifest>
