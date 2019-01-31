@@ -19,7 +19,7 @@ class MainActivity : BaseActivity(), IMainActivity {
     @Inject
     lateinit var mPresenter: IMainPresenter<IMainActivity, IMainInteractor>
 
-    internal var mCurrentWeather: WeatherReport? = null
+    private var mCurrentWeather: WeatherReport? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
