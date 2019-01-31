@@ -24,4 +24,6 @@ object CommonUtil {
         }
     }
 
+    fun kelvinToCelsius(tempKelvin: Double): Double = tempKelvin - 273.15
+
 }
