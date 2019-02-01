@@ -1,9 +1,14 @@
 package com.lusivic.weatherhistory.ui.main.view
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -16,15 +21,19 @@ import com.lusivic.weatherhistory.ui.main.presenter.IMainPresenter
 import com.lusivic.weatherhistory.utils.AppConstants
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 import javax.inject.Inject
 
 
-class MainActivity : BaseActivity(), IMainActivity {
+class MainActivity : BaseActivity(), IMainActivity, LocationListener {
 
     @Inject
     lateinit var mPresenter: IMainPresenter<IMainActivity, IMainInteractor>
+    @Inject
+    lateinit var locationManager: LocationManager
 
     private var mCurrentWeather: WeatherReport? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,6 +98,20 @@ class MainActivity : BaseActivity(), IMainActivity {
 
     override fun showInsertFailedMessage() {
         Toast.makeText(this, "Failed to submit the weather report!", Toast.LENGTH_LONG).show()
+    }
+
+    override fun getCurrentLocation() {
+        val location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+        if (location != null && location.time > Calendar.getInstance().timeInMillis - 10 * 1000) {
+            mPresenter.getCurrentWeather(location.longitude, location.latitude)
+        } else {
+            locationManager.requestLocationUpdates(
+                LocationManager.GPS_PROVIDER,
+                0,
+                0f,
+                this
+            )
+        }
     }
 
     override fun onLocationChanged(p0: Location?) {
