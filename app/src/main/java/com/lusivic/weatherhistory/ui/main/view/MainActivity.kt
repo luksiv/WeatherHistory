@@ -96,7 +96,7 @@ class MainActivity : BaseActivity(), IMainActivity {
             mPresenter.onRefreshClick()
         }
         btn_submit.setOnClickListener {
-            mCurrentWeather?.let { mPresenter.onSubmitClick(mCurrentWeather!!) }
+            mCurrentWeather?.let { mPresenter.onSubmitClick(mCurrentWeather!!) } ?: mPresenter.onRefreshClick()
         }
         btn_history.setOnClickListener {
             mPresenter.onHistoryClick()
