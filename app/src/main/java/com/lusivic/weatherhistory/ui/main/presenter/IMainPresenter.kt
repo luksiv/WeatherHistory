@@ -6,11 +6,11 @@ import com.lusivic.weatherhistory.ui.main.interactor.IMainInteractor
 import com.lusivic.weatherhistory.ui.main.view.IMainActivity
 
 interface IMainPresenter<V : IMainActivity, I : IMainInteractor> : MVPPresenter<V, I> {
-    fun onLocationPermissionGranted()
-    fun onLocationPermissionDenied()
-    fun onViewReady()
+    fun onLocationPermissionGranted(): Unit?
+    fun onLocationPermissionDenied(): Unit?
+    fun onViewReady(): Unit?
     fun onHistoryClick()
-    fun onRefreshClick()
+    fun onRefreshClick(): Unit?
     fun onSubmitClick(weatherReport: WeatherReport)
     fun getCurrentWeather(longitude: Double, latitude: Double)
 }
