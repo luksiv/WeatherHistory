@@ -7,7 +7,7 @@ import retrofit2.http.Query
 // https://api.openweathermap.org/data/2.5/weather?lat=54.899138&lon=23.976159&appid=63cc0e61413bac6ec26e145f62c3edfe
 interface OpenWeatherApiService {
     @GET("data/2.5/weather")
-    fun getCurrentWeatherByCoord(@Query("lat") latitude: Float,
-                                 @Query("lon") longitude: Float,
+    fun getCurrentWeatherByCoord(@Query("lat") latitude: Double,
+                                 @Query("lon") longitude: Double,
                                  @Query("appid") apiKey: String) : Single<OpenWeatherResponse>
 }

@@ -8,6 +8,6 @@ import io.reactivex.Single
 
 interface IMainInteractor : MVPInteractor {
 
-    fun getCurrentWeatherReport(latitude: Float, longitude: Float): Single<OpenWeatherResponse>
+    fun getCurrentWeatherReport(latitude: Double, longitude: Double): Single<OpenWeatherResponse>
     fun insertWeatherReport(weatherReport: WeatherReport): Completable
 }

@@ -15,7 +15,7 @@ class MainInteractor @Inject internal constructor(
 ) : BaseInteractor(),
     IMainInteractor {
 
-    override fun getCurrentWeatherReport(latitude: Float, longitude: Float): Single<OpenWeatherResponse> =
+    override fun getCurrentWeatherReport(latitude: Double, longitude: Double): Single<OpenWeatherResponse> =
         openWeatherApiService.getCurrentWeatherByCoord(latitude, longitude, BuildConfig.OPEN_WEATHER_API_KEY)
 
     override fun insertWeatherReport(weatherReport: WeatherReport) =

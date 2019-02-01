@@ -12,4 +12,5 @@ interface IMainPresenter<V : IMainActivity, I : IMainInteractor> : MVPPresenter<
     fun onHistoryClick()
     fun onRefreshClick()
     fun onSubmitClick(weatherReport: WeatherReport)
+    fun getCurrentWeather(longitude: Double, latitude: Double)
 }
