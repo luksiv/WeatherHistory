@@ -68,7 +68,7 @@ class MainPresenter<V : IMainActivity, I : IMainInteractor> @Inject internal con
         }
     }
 
-    override fun getCurrentWeather(longitude: Double, latitude: Double) {
+    override fun getCurrentWeather(latitude: Double, longitude: Double) {
         getView()?.showProgress()
         interactor?.let {
             compositeDisposable.add(
