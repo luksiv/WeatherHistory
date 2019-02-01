@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "weather_reports")
 data class WeatherReport(
-    @PrimaryKey(autoGenerate = true) var id: Long,
+    @PrimaryKey(autoGenerate = true) var id: Long?,
     @ColumnInfo(name = "name")
     var name: String,
     @ColumnInfo(name = "description")
