@@ -91,6 +91,22 @@ class MainActivity : BaseActivity(), IMainActivity {
         Toast.makeText(this, "Failed to submit the weather report!", Toast.LENGTH_LONG).show()
     }
 
+    override fun onLocationChanged(p0: Location?) {
+        p0?.let {
+            mPresenter.getCurrentWeather(it.longitude, it.latitude)
+            locationManager.removeUpdates(this)
+        }
+    }
+
+    override fun onStatusChanged(p0: String?, p1: Int, p2: Bundle?) {
+    }
+
+    override fun onProviderEnabled(p0: String?) {
+    }
+
+    override fun onProviderDisabled(p0: String?) {
+    }
+
     private fun setOnClickListeners() {
         btn_refresh.setOnClickListener {
             mPresenter.onRefreshClick()
