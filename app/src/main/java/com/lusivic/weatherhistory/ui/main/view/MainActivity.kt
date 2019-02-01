@@ -102,7 +102,7 @@ class MainActivity : BaseActivity(), IMainActivity, LocationListener {
 
     override fun getCurrentLocation() {
         val location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
-        if (location != null && location.time > Calendar.getInstance().timeInMillis - 10 * 1000) {
+        if (location != null && location.time > Calendar.getInstance().timeInMillis - 10 * 60 * 1000) {
             mPresenter.getCurrentWeather(location.longitude, location.latitude)
         } else {
             locationManager.requestLocationUpdates(
