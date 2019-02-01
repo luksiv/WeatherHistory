@@ -12,5 +12,5 @@ interface IMainActivity : MVPView {
     fun showPermissionDenied()
     fun isLocationPermissionGranted(): Boolean
     fun requestLocationPermission()
-
+    fun getCurrentLocation()
 }
