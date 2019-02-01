@@ -32,24 +32,19 @@ class MainPresenter<V : IMainActivity, I : IMainInteractor> @Inject internal con
         }
     }
 
-    override fun onLocationPermissionGranted() {
-        getView()?.setUp()
+    override fun onLocationPermissionGranted() = getView()?.setUp()
+
+    override fun onLocationPermissionDenied() = getView()?.let {
+        it.hideProgress()
+        it.showPermissionDenied()
     }
 
-    override fun onLocationPermissionDenied() {
-        getView()?.let {
-            it.hideProgress()
-            it.showPermissionDenied()
-        }
-    }
 
-    override fun onViewReady() = getLatestWeatherReport()
+    override fun onViewReady() = getView()?.getCurrentLocation()
 
-    override fun onHistoryClick() {
-        (getView() as MainActivity).openHistoryActivity()
-    }
+    override fun onHistoryClick() = (getView() as MainActivity).openHistoryActivity()
 
-    override fun onRefreshClick() = getLatestWeatherReport()
+    override fun onRefreshClick() = getView()?.getCurrentLocation()
 
     override fun onSubmitClick(weatherReport: WeatherReport) {
         getView()?.showProgress()
@@ -73,11 +68,11 @@ class MainPresenter<V : IMainActivity, I : IMainInteractor> @Inject internal con
         }
     }
 
-    private fun getLatestWeatherReport() {
+    override fun getCurrentWeather(longitude: Double, latitude: Double) {
         getView()?.showProgress()
         interactor?.let {
             compositeDisposable.add(
-                it.getCurrentWeatherReport(54.899138f, 23.976159f)
+                it.getCurrentWeatherReport(longitude, latitude)
                     .compose(schedulerProvider.ioToMainSingleScheduler())
                     .subscribe({ response ->
                         Log.v("API response", response.toString())
@@ -100,6 +95,7 @@ class MainPresenter<V : IMainActivity, I : IMainInteractor> @Inject internal con
             weatherResponse.main.humidity,
             weatherResponse.wind.speed.toFloat(),
             "${weatherResponse.name}, ${weatherResponse.sys.country}",
-            weatherResponse.dt.toLong())
+            weatherResponse.dt.toLong()
+        )
     }
 }
