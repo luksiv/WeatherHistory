@@ -2,6 +2,7 @@ package com.lusivic.weatherhistory.di
 
 import android.app.Application
 import android.content.Context
+import android.location.LocationManager
 import androidx.room.Room
 import com.lusivic.weatherhistory.BuildConfig
 import com.lusivic.weatherhistory.data.db.AppDatabase
@@ -42,6 +43,10 @@ class AppModule {
     @Provides
     @Named(OPEN_WEATHER_API_KEY)
     internal fun provideOpenWeatherApiKey(): String = BuildConfig.OPEN_WEATHER_API_KEY
+
+    @Provides
+    @Singleton
+    internal fun provideLocationManager(context: Context): LocationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
     @Provides
     internal fun provideCompositeDisposable(): CompositeDisposable = CompositeDisposable()
