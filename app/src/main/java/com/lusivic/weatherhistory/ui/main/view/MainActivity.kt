@@ -4,6 +4,9 @@ import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.Matrix
+import android.graphics.drawable.Drawable
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
@@ -12,6 +15,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.toBitmap
 import com.lusivic.weatherhistory.R
 import com.lusivic.weatherhistory.data.db.weatherReport.WeatherReport
 import com.lusivic.weatherhistory.ui.base.view.BaseActivity
@@ -111,12 +115,13 @@ class MainActivity : BaseActivity(), IMainActivity, LocationListener {
     }
 
     override fun getCurrentLocation() {
-        val location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
-        if (location != null && location.time > Calendar.getInstance().timeInMillis - 10 * 60 * 1000) {
+        val location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+        if (location != null && location.time > Calendar.getInstance().timeInMillis - 5 * 1000) {
+            Log.v("LocationRequestOld", location.toString())
             mPresenter.getCurrentWeather(location.longitude, location.latitude)
         } else {
             locationManager.requestLocationUpdates(
-                LocationManager.NETWORK_PROVIDER,
+                LocationManager.GPS_PROVIDER,
                 0,
                 0f,
                 this
@@ -126,6 +131,7 @@ class MainActivity : BaseActivity(), IMainActivity, LocationListener {
 
     override fun onLocationChanged(p0: Location?) {
         p0?.let {
+            Log.v("LocationRequestNew", p0.toString())
             mPresenter.getCurrentWeather(it.longitude, it.latitude)
             locationManager.removeUpdates(this)
         }
