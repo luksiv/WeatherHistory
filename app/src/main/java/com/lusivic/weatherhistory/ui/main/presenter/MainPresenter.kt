@@ -89,13 +89,13 @@ class MainPresenter<V : IMainActivity, I : IMainInteractor> @Inject internal con
     private fun convertOpenWeatherResponseToWeatherReport(weatherResponse: OpenWeatherResponse): WeatherReport {
         return WeatherReport(
             null,
-            weatherResponse.weather[0].main,
-            weatherResponse.weather[0].description,
+            weatherResponse.weather[0].group,
+            weatherResponse.weather[0].condition,
             CommonUtil.kelvinToCelsius(weatherResponse.main.temp).toFloat(),
             weatherResponse.main.humidity,
-            weatherResponse.wind.speed.toFloat(),
-            "${weatherResponse.name}, ${weatherResponse.sys.country}",
-            weatherResponse.dt.toLong()
+            weatherResponse.windInfo.speed.toFloat(),
+            "${weatherResponse.locationName}, ${weatherResponse.locationInfo.countryCode}",
+            weatherResponse.reportTimestamp.toLong()
         )
     }
 }
