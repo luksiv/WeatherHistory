@@ -7,4 +7,7 @@ object AppConstants {
     internal val LOCATION_REQUEST_CODE = 1001
 
     internal val BASE_OW_API_URL = "https://api.openweathermap.org/"
+
+    internal val TEMP_UNIT = "K"
+    internal val SPEED_UNIT = "m/s"
 }
