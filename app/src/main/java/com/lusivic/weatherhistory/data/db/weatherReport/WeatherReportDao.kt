@@ -14,7 +14,7 @@ interface WeatherReportDao {
     @Delete
     fun delete(weatherReport: WeatherReport)
 
-    @Query("SELECT * from weather_reports")
+    @Query("SELECT * FROM weather_reports ORDER BY report_timestamp DESC")
     fun selectAll(): List<WeatherReport>
 
 }

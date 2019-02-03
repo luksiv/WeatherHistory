@@ -37,12 +37,12 @@ class HistoryAdapter(private val weatherHistoryList: MutableList<WeatherReport>)
         }
 
         fun onBind(position: Int) {
-            val date = weatherHistoryList[position].timestamp.toString()
-            val location = weatherHistoryList[position].location
-            val temperature = "Temperature: ${weatherHistoryList[position].temperature}°C"
-            val description = "${weatherHistoryList[position].name} (${weatherHistoryList[position].description})"
+            val date = weatherHistoryList[position].reportTimestamp.toString()
+            val location = "${weatherHistoryList[position].locationInfo.name}, ${weatherHistoryList[position].locationInfo.countryCode}"
+            val temperature = "Temperature: ${weatherHistoryList[position].measurements.temp}°K"
+            val description = "${weatherHistoryList[position].weatherInfo.group} (${weatherHistoryList[position].weatherInfo.condition})"
             val details =
-                "Humidity: ${weatherHistoryList[position].humidity}% Wind speed: ${weatherHistoryList[position].windSpeed} m/s"
+                "Humidity: ${weatherHistoryList[position].measurements.humidity}% Wind speed: ${weatherHistoryList[position].measurements.windSpeed} m/s"
 
             inflateData(date, location, temperature, description, details)
 

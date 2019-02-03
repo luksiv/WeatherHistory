@@ -3,80 +3,61 @@ package com.lusivic.weatherhistory.data.network
 import com.google.gson.annotations.SerializedName
 
 data class OpenWeatherResponse(
-    @SerializedName("base")
-    val base: String,
-    @SerializedName("clouds")
-    val clouds: Clouds,
     @SerializedName("cod")
     val cod: Int,
-    @SerializedName("coord")
-    val coord: Coord,
-    @SerializedName("dt")
-    val dt: Int,
     @SerializedName("id")
     val id: Int,
-    @SerializedName("main")
-    val main: Main,
+    @SerializedName("dt")
+    val reportTimestamp: Int,
     @SerializedName("name")
-    val name: String,
+    val locationName: String,
     @SerializedName("sys")
-    val sys: Sys,
-    @SerializedName("visibility")
-    val visibility: Int,
+    val locationInfo: Sys,
+    @SerializedName("main")
+    val measurements: Main,
     @SerializedName("weather")
     val weather: List<Weather>,
+    @SerializedName("clouds")
+    val clouds: Clouds,
     @SerializedName("wind")
-    val wind: Wind
+    val windInfo: Wind
 ) {
-    data class Coord(
-        @SerializedName("lat")
-        val lat: Double,
-        @SerializedName("lon")
-        val lon: Double
-    )
-
     data class Sys(
         @SerializedName("country")
-        val country: String,
-        @SerializedName("id")
-        val id: Int,
-        @SerializedName("message")
-        val message: Double,
+        val countryCode: String,
         @SerializedName("sunrise")
-        val sunrise: Int,
+        val sunriseTime: Int,
         @SerializedName("sunset")
-        val sunset: Int,
-        @SerializedName("type")
-        val type: Int
+        val sunsetTime: Int
     )
 
     data class Weather(
-        @SerializedName("description")
-        val description: String,
-        @SerializedName("icon")
-        val icon: String,
-        @SerializedName("id")
-        val id: Int,
         @SerializedName("main")
-        val main: String
+        val group: String,
+        @SerializedName("id")
+        val conditionId: Int,
+        @SerializedName("description")
+        val condition: String,
+        @SerializedName("icon")
+        val iconId: String
     )
 
     data class Main(
-        @SerializedName("humidity")
-        val humidity: Int,
-        @SerializedName("pressure")
-        val pressure: Int,
         @SerializedName("temp")
         val temp: Double,
         @SerializedName("temp_max")
         val tempMax: Double,
         @SerializedName("temp_min")
-        val tempMin: Double
+        val tempMin: Double,
+        @SerializedName("humidity")
+        val humidity: Int,
+        @SerializedName("pressure")
+        val pressure: Int
     )
 
     data class Clouds(
         @SerializedName("all")
-        val all: Int
+        val cloudiness: Int
     )
 
     data class Wind(

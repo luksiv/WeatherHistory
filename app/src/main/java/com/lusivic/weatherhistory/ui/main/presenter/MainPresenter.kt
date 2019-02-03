@@ -1,13 +1,15 @@
 package com.lusivic.weatherhistory.ui.main.presenter
 
 import android.util.Log
+import com.lusivic.weatherhistory.data.db.weatherReport.LocationInfo
+import com.lusivic.weatherhistory.data.db.weatherReport.Measurements
+import com.lusivic.weatherhistory.data.db.weatherReport.WeatherInfo
 import com.lusivic.weatherhistory.data.db.weatherReport.WeatherReport
 import com.lusivic.weatherhistory.data.network.OpenWeatherResponse
 import com.lusivic.weatherhistory.ui.base.presenter.BasePresenter
 import com.lusivic.weatherhistory.ui.main.interactor.IMainInteractor
 import com.lusivic.weatherhistory.ui.main.view.IMainActivity
 import com.lusivic.weatherhistory.ui.main.view.MainActivity
-import com.lusivic.weatherhistory.utils.CommonUtil
 import com.lusivic.weatherhistory.utils.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
@@ -88,14 +90,11 @@ class MainPresenter<V : IMainActivity, I : IMainInteractor> @Inject internal con
 
     private fun convertOpenWeatherResponseToWeatherReport(weatherResponse: OpenWeatherResponse): WeatherReport {
         return WeatherReport(
-            null,
-            weatherResponse.weather[0].main,
-            weatherResponse.weather[0].description,
-            CommonUtil.kelvinToCelsius(weatherResponse.main.temp).toFloat(),
-            weatherResponse.main.humidity,
-            weatherResponse.wind.speed.toFloat(),
-            "${weatherResponse.name}, ${weatherResponse.sys.country}",
-            weatherResponse.dt.toLong()
+            weatherResponse.id,
+            weatherResponse.reportTimestamp,
+            LocationInfo(weatherResponse.locationName, weatherResponse.locationInfo.countryCode, weatherResponse.locationInfo.sunriseTime, weatherResponse.locationInfo.sunsetTime),
+            WeatherInfo(weatherResponse.weather[0].group, weatherResponse.weather[0].condition, weatherResponse.weather[0].iconId),
+            Measurements(weatherResponse.measurements.temp, weatherResponse.measurements.tempMax, weatherResponse.measurements.tempMin, weatherResponse.measurements.humidity, weatherResponse.measurements.pressure, weatherResponse.clouds.cloudiness, weatherResponse.windInfo.deg, weatherResponse.windInfo.speed)
         )
     }
 }
