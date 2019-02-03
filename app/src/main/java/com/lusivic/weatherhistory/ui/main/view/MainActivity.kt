@@ -81,10 +81,10 @@ class MainActivity : BaseActivity(), IMainActivity, LocationListener {
 
     override fun showCurrentWeather(weather: WeatherReport) {
         mCurrentWeather = weather
-        tv_temperature.text = "${weather.temperature}°C"
-        tv_weatherName.text = weather.name
-        tv_weatherDescription.text = weather.description
-        tv_weatherDetails.text = "Humidity: ${weather.humidity}% Wind speed: ${weather.windSpeed} m/s"
+        tv_temperature.text = "${weather.measurements.temp}°C"
+        tv_weatherName.text = weather.weatherInfo.group
+        tv_weatherDescription.text = weather.weatherInfo.condition
+        tv_weatherDetails.text = "Humidity: ${weather.measurements.humidity}% Wind speed: ${weather.measurements.windSpeed} m/s"
     }
 
     override fun openHistoryActivity() {
