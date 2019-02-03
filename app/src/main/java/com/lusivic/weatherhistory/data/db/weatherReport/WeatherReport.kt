@@ -45,5 +45,5 @@ data class Measurements(
     val pressure: Int,
     val cloudiness: Int,
     val windDeg: Int,
-    val windSpeed: Int
+    val windSpeed: Double
 )
