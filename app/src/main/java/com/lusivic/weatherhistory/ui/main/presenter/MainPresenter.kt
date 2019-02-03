@@ -91,8 +91,8 @@ class MainPresenter<V : IMainActivity, I : IMainInteractor> @Inject internal con
             null,
             weatherResponse.weather[0].group,
             weatherResponse.weather[0].condition,
-            CommonUtil.kelvinToCelsius(weatherResponse.main.temp).toFloat(),
-            weatherResponse.main.humidity,
+            CommonUtil.kelvinToCelsius(weatherResponse.measurements.temp).toFloat(),
+            weatherResponse.measurements.humidity,
             weatherResponse.windInfo.speed.toFloat(),
             "${weatherResponse.locationName}, ${weatherResponse.locationInfo.countryCode}",
             weatherResponse.reportTimestamp.toLong()

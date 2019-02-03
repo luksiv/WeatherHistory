@@ -14,7 +14,7 @@ data class OpenWeatherResponse(
     @SerializedName("sys")
     val locationInfo: Sys,
     @SerializedName("main")
-    val main: Main,
+    val measurements: Main,
     @SerializedName("weather")
     val weather: List<Weather>,
     @SerializedName("clouds")
