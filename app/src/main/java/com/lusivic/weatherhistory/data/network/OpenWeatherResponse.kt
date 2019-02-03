@@ -52,7 +52,7 @@ data class OpenWeatherResponse(
         @SerializedName("humidity")
         val humidity: Int,
         @SerializedName("pressure")
-        val pressure: Int
+        val pressure: Double
     )
 
     data class Clouds(
@@ -62,7 +62,7 @@ data class OpenWeatherResponse(
 
     data class Wind(
         @SerializedName("deg")
-        val deg: Int,
+        val deg: Double,
         @SerializedName("speed")
         val speed: Double
     )

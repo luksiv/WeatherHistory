@@ -42,8 +42,8 @@ data class Measurements(
     val tempMax: Double,
     val tempMin: Double,
     val humidity: Int,
-    val pressure: Int,
+    val pressure: Double,
     val cloudiness: Int,
-    val windDeg: Int,
+    val windDeg: Double,
     val windSpeed: Double
 )
