@@ -81,10 +81,20 @@ class MainActivity : BaseActivity(), IMainActivity, LocationListener {
 
     override fun showCurrentWeather(weather: WeatherReport) {
         mCurrentWeather = weather
-        tv_temperature.text = "${weather.measurements.temp}°K"
-        tv_weatherName.text = weather.weatherInfo.group
-        tv_weatherDescription.text = weather.weatherInfo.condition
-        tv_weatherDetails.text = "Humidity: ${weather.measurements.humidity}% Wind speed: ${weather.measurements.windSpeed} m/s"
+        tv_locationName.text = weather.locationInfo.name
+        tv_locationCountryCode.text = weather.locationInfo.countryCode
+        tv_temperature.text = weather.measurements.temp.toString()
+        tv_temperatureUnit.text = AppConstants.TEMP_UNIT
+        tv_weatherCondition.text = weather.weatherInfo.condition
+        tv_humidity.text = weather.measurements.humidity.toString()
+        tv_windSpeed.text = weather.measurements.windSpeed.toString()
+        tv_windSpeedUnit.text = AppConstants.SPEED_UNIT
+        Toast.makeText(this, "Wind degree: ${weather.measurements.windDeg}", Toast.LENGTH_SHORT).show()
+        val matrix = Matrix()
+        matrix.postRotate(weather.measurements.windDeg.toFloat() - 90f)
+        val myImg = resources.getDrawable(R.drawable.ic_arrow).toBitmap()
+        val myImgRotated = Bitmap.createBitmap(myImg, 0, 0, myImg.width, myImg.height, matrix, true)
+        iv_windArrow.setImageBitmap(myImgRotated)
     }
 
     override fun openHistoryActivity() {
